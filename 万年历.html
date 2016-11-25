@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table{
+				border: 1px solid gold;
+			}
+			td{
+				width:50px;
+				height:30px;
+				border: 1px solid gainsboro;
+			}
+			td:hover{
+				background: cornflowerblue;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="select">
+			<select id="seyear" >
+				
+			</select>
+			<select id="semonth">
+				
+			</select>
+			<select id="seday">
+			
+			</select>
+		</div>
+		<div id="calendar">			
+		</div>
+		<script type="text/javascript">
+		         for(var i =1950; i<=2150;i++){
+		         	$("#seyear").append("<option id='currentyear'>"+i+"</option>")		         	
+		         }
+		         for(var i =1;i<=12;i++){
+		         	$("#semonth").append("<option id='currentmonth'>"+i+"</option>")
+		         }
+		  
+		  
+		  //年份和月份变化是,触发函数
+		       $("#seyear").change(function(){		
+	              var currentyear= $("#seyear").val();	     
+		      
+		          $("#calendar").empty();  //清空
+		       
+		          
+		          //表格
+		        $("#calendar").append("<table id='tab'></table>");
+			$("#tab").append("<tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>");
+			for(var i =0;i<6;i++){
+				$("#tab").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>")			
+			}
+		     
+		       var thisDate=new Date(currentyear);
+		       var  thisMonth=$("#semonth").val();
+		       var  thisDay= new Date(currentyear,1,0);	   
+		       var  thisDaycount=thisDay.getDate();
+		       var thisd=new Date(currentyear,1,3);
+               var thisweekDay=thisd.getDay();
+               var thispreDaycount=31;
+               var nowDate = new  Date(); 
+               var nowDays=nowDate.getDay();
+		       console.log(thisweekDay);
+		       
+		       
+		  /*    
+		     var nowDate = new  Date(); 
+		var nowDays=nowDate.getDay();
+	
+		var nowMonth = nowDate.getMonth()+1;
+		var nowYear = nowDate.getFullYear();
+	     //本月天数
+	    var nowDay= new Date(nowYear,nowMonth,0);	   
+		var nowDaycount=nowDay.getDate();
+		
+		//上月天数
+		var preMonth = nowDate.getMonth();
+		var preDay = new Date(nowYear,preMonth,0);
+		var preDaycount = preDay.getDate();*/
+		      
+		      
+		      //填数
+		       for(var j = 1;j<=40;j++){
+		 		str = "td:eq(" + (j+6) + " )";
+		    	if(j-thisweekDay+3<1){
+		    	  $(str).text(j-thisweekDay+3+thispreDaycount);	
+		    	}else if(j-thisweekDay+3>thisDaycount){
+		    		$(str).text(j-thisweekDay+3-thisDaycount)
+		    	}		    	
+		    	else{
+		    		 if(j-thisweekDay+4==nowDays){
+		    		 	$(str).text(j-thisweekDay+3);
+		    		 	$(str).css("background","red");
+		    		 }
+		    		$(str).text(j-thisweekDay+3);
+		    	}		    	
+		    }
+		       
+		       
+		       
+		       
+		       
+		       }) //年变动
+		     
+		     
+		     
+		     
+		     $("#semonth").change(function(){
+	              
+	              var currentmonth= $("#semonth").val();
+		        
+		        
+		        $("#calendar").append("<table id='tab'></table>");
+			$("#tab").append("<tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>");
+			for(var i =0;i<6;i++){
+				$("#tab").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>")			
+			}
+		     
+		     
+		     
+		     })//月变动
+		      
+		
+		
+		
+		//加表格
+		$(function(){
+		 	$("#calendar").append("<table id='tab'></table>");			 
+			$("#tab").append("<tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>");
+			for(var i =0;i<6;i++){
+				$("#tab").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>")			
+			}	
+
+		
+		
+		//获取星期数  
+		var d=new Date();
+        var weekDay=d.getDay();
+       // console.log(weekDay);
+		
+	
+		var nowDate = new  Date(); 
+		var nowDays=nowDate.getDay();
+	
+		var nowMonth = nowDate.getMonth()+1;
+		var nowYear = nowDate.getFullYear();
+	     //本月天数
+	    var nowDay= new Date(nowYear,nowMonth,0);	   
+		var nowDaycount=nowDay.getDate();
+		
+		//上月天数
+		var preMonth = nowDate.getMonth();
+		var preDay = new Date(nowYear,preMonth,0);
+		var preDaycount = preDay.getDate();
+		
+		
+		
+		  
+		
+		//往calendar里填充日期
+		for(var j = 1;j<=40;j++){
+		 		str = "td:eq(" + (j+6) + " )";
+		    	if(j-weekDay+3<1){
+		    	  $(str).text(j-weekDay+3+preDaycount);	
+		    	}else if(j-weekDay+3>nowDaycount){
+		    		$(str).text(j-weekDay+3-nowDaycount)
+		    	}		    	
+		    	else{
+		    		 if(j-weekDay+4==nowDays){
+		    		 	$(str).text(j-weekDay+3);
+		    		 	$(str).css("background","red");
+		    		 }
+		    		$(str).text(j-weekDay+3);
+		    	}		    	
+		    }
+		 
+		 
+		
+		 
+		 
+		 
+		 
+		 })//准备函数
+			
+		</script>
+	</body>
+</html>
